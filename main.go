@@ -12,6 +12,7 @@ import (
 	"github.com/crewjam/saml/samlsp"
 )
 
+// Print SAML request
 func samlRequestPrinter(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("Header : %+v\n", r.Header)
@@ -20,6 +21,7 @@ func samlRequestPrinter(next http.Handler) http.Handler {
 	})
 }
 
+// Echo session info
 func echoSession(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "%v\n", samlsp.SessionFromContext(r.Context()))
 }
