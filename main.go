@@ -65,7 +65,7 @@ func main() {
 
 	// Set session handler to print session info
 	app := http.HandlerFunc(echoSession)
-	http.Handle("/session", samlSP.RequireAccount(app))
+	http.Handle("/session", samlSP.RequireAccount(app)) // Set auth with RequireAccount()
 
 	// Serve HTTP
 	http.ListenAndServe(":8000", nil)
