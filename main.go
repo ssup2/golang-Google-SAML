@@ -6,6 +6,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 
@@ -15,8 +16,9 @@ import (
 // Print SAML request
 func samlRequestPrinter(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Printf("Header : %+v\n", r.Header)
-		fmt.Printf("Body : %+v\n", r.Body)
+		bodyBytes, _ := ioutil.ReadAll(r.Body)
+		fmt.Printf("Request : %+v\n", r)
+		fmt.Printf("Request Body : %s\n", bodyBytes)
 		next.ServeHTTP(w, r)
 	})
 }
