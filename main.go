@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"crypto/rsa"
 	"crypto/tls"
@@ -16,9 +17,13 @@ import (
 // Print SAML request
 func samlRequestPrinter(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Get body and copy to new buffer
 		bodyBytes, _ := ioutil.ReadAll(r.Body)
+		r.Body.Close()
+		r.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+
+		// Print request and request body
 		fmt.Printf("Request : %+v\n", r)
-		fmt.Printf("Request Body : %s\n", bodyBytes)
 		next.ServeHTTP(w, r)
 	})
 }
