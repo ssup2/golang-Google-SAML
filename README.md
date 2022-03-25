@@ -1,4 +1,4 @@
-# golang-Google-SAML
+# golang-Keycloak-SAML
 
 * For studying SAML
 * Reference Code : https://github.com/crewjam/saml/blob/main/example/trivial/trivial.go
